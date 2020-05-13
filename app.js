@@ -19,10 +19,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req,res,next){
-  res.send(req.originalUrl)
- 
-})
+console.log('indexRouter',indexRouter)
+console.log('usersRouter',usersRouter)
+
+// app.use(function(req,res,next,usersRouter,indexRouter){
+//   res.send({indexRouter,usersRouter})
+// })
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
