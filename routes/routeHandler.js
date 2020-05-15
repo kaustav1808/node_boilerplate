@@ -23,7 +23,7 @@ let routeHandler =  function(req,res,next){
     //resolve route modules
     let routeFile = resolveRouter();
 
-    resolveModule().then((routerModule)=>{
+    resolveModule(routeFile).then((routerModule)=>{
         let currentRouterPath = pathParams.pathArray.join('/');
         router.use(currentRouterPath,routerModule);
     }).catch(err=>{
