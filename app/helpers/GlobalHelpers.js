@@ -11,7 +11,8 @@ let checkIfDirectory = function(path){
 };
 
 let checkIfFile = function(path,type=null){
-    path = type?path+'/.'+type:null;
+    path = type?'/'+path+'.'+type:path;
+    console.log(path)
     try{
         const stats = fs.statSync(path);
     }catch(err){

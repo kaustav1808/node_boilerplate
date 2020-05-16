@@ -1,5 +1,5 @@
 const routeConfig   = require('../config/route');
-const path = require('path');
+let path = require('path');
 const fs = require('fs');
 let express = require('express');
 let router = express.Router();
@@ -32,10 +32,11 @@ let routeHandler =  function(req,res,next){
 };
 
 let initPath = function (req){
+    console.log(process.env)
       pathParams.currentPath    = req.originalUrl;
       pathParams.basePath       = req.baseUrl;
-      pathParams.appRootPath    = process.env.PWD;
-      pathParams.routerBasePath = path.join(pathParams.appRootPath,routeConfig.routePath);
+      pathParams.appRootPath    = process.env.INIT_CWD;
+      pathParams.routerBasePath = routeConfig.routePath;
       pathParams.pathArray      = pathParams.currentPath.split('/');
       pathParams.pathArray.shift();
 };

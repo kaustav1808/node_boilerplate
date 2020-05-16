@@ -1,6 +1,6 @@
 const routeConfig = {
     controllerPath:"/app/controller/",
-    routePath: "/routes",
+    routePath: "routes",
     routes:{
         webRoute:'webRoute.js',
         apiRoute:'apiRoute.js'
