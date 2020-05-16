@@ -24,7 +24,8 @@ let routeHandler =  function(req,res,next){
     let routeFile = resolveRouter();
 
     resolveModule(routeFile).then((routerModule)=>{
-        let currentRouterPath = pathParams.pathArray.join('/');
+        let currentRouterPath = pathParams.pathArray.length? pathParams.pathArray.join('/'):'/';
+        console.log(currentRouterPath)
         router.use(currentRouterPath,routerModule);
     }).catch(err=>{
         next(err);
@@ -32,28 +33,27 @@ let routeHandler =  function(req,res,next){
 };
 
 let initPath = function (req){
-    console.log(process.env)
       pathParams.currentPath    = req.originalUrl;
       pathParams.basePath       = req.baseUrl;
-      pathParams.appRootPath    = process.env.INIT_CWD;
-      pathParams.routerBasePath = routeConfig.routePath;
+      pathParams.appRootPath    = process.cwd();
+      pathParams.routerBasePath = path.join(pathParams.appRootPath, routeConfig.routePath);
       pathParams.pathArray      = pathParams.currentPath.split('/');
       pathParams.pathArray.shift();
 };
 
 let resolveRouter = function() {
-    let currentPath  = pathParams.routerBasePath + '/';
+    let currentPath  = path.join(pathParams.routerBasePath , '');
     let pathResolver = 'index.js';
 
     while(pathParams.pathArray.length){
         let path = pathParams.pathArray.shift();
         if(path){
             if(helpers.checkIfDirectory(currentPath+path))
-                currentPath += path+'/';
-            else if(helpers.checkIfFile(currentPath+path,'js')){
+                currentPath = path.join(currentPath,path);
+            else if(helpers.checkIfFile(currentPath,path+'.js')){
                 pathResolver = path+'.js';
                 break;
-            }else if(helpers.checkIfFile(currentPath+'index','js')){
+            }else if(helpers.checkIfFile(currentPath,'index.js')){
                 pathResolver = 'index.js';
                 pathParams.pathArray.unshift(path);
                 break;
@@ -63,7 +63,7 @@ let resolveRouter = function() {
         }
         else if(pathParams.pathArray.length) {
             throw new Error("invalid URL " + pathParams.currentPath)
-        }else if(helpers.checkIfFile(currentPath+'index','js')){
+        }else if(helpers.checkIfFile(currentPath,'index.js')){
             pathResolver = 'index.js';
             break;
         }else{
@@ -71,14 +71,15 @@ let resolveRouter = function() {
         }
     }
 
-    return currentPath+pathResolver;
+    return path.join(currentPath,pathResolver);
 };
 
 let resolveModule = async function(modulePath){
     try{
-        let routeModule = await import(modulePath)
+        let routeModule = await require(modulePath);
+        return routeModule;
     }catch(err){
-        throw new Error(err);
+       return err;
     }
 
     return routeModule;

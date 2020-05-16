@@ -1,8 +1,9 @@
 const fs = require('fs');
+const path = require('path');
 
 let checkIfDirectory = function(path){
     try{
-        const stats = fs.statSync(path);
+        let stats = fs.statSync(path);
     }catch(err){
         throw new Error(err)
     }
@@ -10,16 +11,15 @@ let checkIfDirectory = function(path){
     return stats.isDirectory();
 };
 
-let checkIfFile = function(path,type=null){
-    path = type?'/'+path+'.'+type:path;
-    console.log(path)
+let checkIfFile = function(pathString,type=null){
+    pathString = type?path.join(pathString,type):pathString;
+    console.log(pathString)
     try{
-        const stats = fs.statSync(path);
+        let stats = fs.statSync(pathString);
+        return stats.isFile();
     }catch(err){
         return false;
     }
-
-    return stats.isFile();
 }
 
 module.exports = {checkIfDirectory,checkIfFile}
