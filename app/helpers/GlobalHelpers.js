@@ -6,7 +6,7 @@ let checkIfDirectory = function(path){
         let stats = fs.statSync(path);
         return stats.isDirectory();
     }catch(err){
-        throw new Error(err)
+        return false;
     }
 };
 

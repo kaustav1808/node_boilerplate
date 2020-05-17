@@ -1,8 +1,5 @@
 const routeConfig   = require('../config/route');
 let path = require('path');
-const fs = require('fs');
-let express = require('express');
-let router = express.Router();
 const helpers = require('../app/helpers/GlobalHelpers')
 
 const pathParams = {
@@ -25,8 +22,8 @@ let routeHandler =  function(req,res,next){
     let routeFile = resolveRouter();
 
     resolveModule(routeFile).then((routerModule)=>{
-        let currentRouterPath = pathParams.pathArray.length? pathParams.pathArray.join('/'):'/';
-        router.all(currentRouterPath,routerModule(req,res,next));
+        //let currentRouterPath = pathParams.pathArray.length? pathParams.pathArray.join('/'):'/';
+        routerModule(req,res,next);
     }).catch(err=>{
         next();
     });
@@ -46,20 +43,20 @@ let resolveRouter = function() {
     let pathResolver = 'index.js';
 
     while(pathParams.pathArray.length){
-        let path = pathParams.pathArray.shift();
-        if(path){
-            if(helpers.checkIfDirectory(currentPath+path)){
-                currentPath = path.join(currentPath,path);
+        let pathString = pathParams.pathArray.shift();
+        if(pathString){
+            if(helpers.checkIfDirectory(path.join(currentPath,pathString))){
+                currentPath = path.join(currentPath,pathString);
                 pathParams.resolvedPath += "/"+path;
             }
-            else if(helpers.checkIfFile(currentPath,path+'.js')){
+            else if(helpers.checkIfFile(currentPath,pathString+'.js')){
                 pathParams.resolvedPath += "/";
-                pathResolver = path+'.js';
+                pathResolver = pathString+'.js';
                 break;
             }else if(helpers.checkIfFile(currentPath,'index.js')){
                 pathResolver = 'index.js';
                 pathParams.resolvedPath += "/";
-                pathParams.pathArray.unshift(path);
+                pathParams.pathArray.unshift(pathString);
                 break;
             }else{
                 throw new Error('Route file not found');
