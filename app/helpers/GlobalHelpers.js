@@ -4,16 +4,14 @@ const path = require('path');
 let checkIfDirectory = function(path){
     try{
         let stats = fs.statSync(path);
+        return stats.isDirectory();
     }catch(err){
         throw new Error(err)
     }
-
-    return stats.isDirectory();
 };
 
-let checkIfFile = function(pathString,type=null){
-    pathString = type?path.join(pathString,type):pathString;
-    console.log(pathString)
+let checkIfFile = function(pathString,file=null){
+    pathString = file?path.join(pathString,file):pathString;
     try{
         let stats = fs.statSync(pathString);
         return stats.isFile();

@@ -10,6 +10,7 @@ const pathParams = {
     basePath:null,
     appRootPath:null,
     routerBasePath:null,
+    resolvedPath : '',
     pathArray:[],
 };
 
@@ -25,10 +26,9 @@ let routeHandler =  function(req,res,next){
 
     resolveModule(routeFile).then((routerModule)=>{
         let currentRouterPath = pathParams.pathArray.length? pathParams.pathArray.join('/'):'/';
-        console.log(currentRouterPath)
-        router.use(currentRouterPath,routerModule);
+        router.all(currentRouterPath,routerModule(req,res,next));
     }).catch(err=>{
-        next(err);
+        next();
     });
 };
 
@@ -48,13 +48,17 @@ let resolveRouter = function() {
     while(pathParams.pathArray.length){
         let path = pathParams.pathArray.shift();
         if(path){
-            if(helpers.checkIfDirectory(currentPath+path))
+            if(helpers.checkIfDirectory(currentPath+path)){
                 currentPath = path.join(currentPath,path);
+                pathParams.resolvedPath += "/"+path;
+            }
             else if(helpers.checkIfFile(currentPath,path+'.js')){
+                pathParams.resolvedPath += "/";
                 pathResolver = path+'.js';
                 break;
             }else if(helpers.checkIfFile(currentPath,'index.js')){
                 pathResolver = 'index.js';
+                pathParams.resolvedPath += "/";
                 pathParams.pathArray.unshift(path);
                 break;
             }else{
@@ -65,6 +69,7 @@ let resolveRouter = function() {
             throw new Error("invalid URL " + pathParams.currentPath)
         }else if(helpers.checkIfFile(currentPath,'index.js')){
             pathResolver = 'index.js';
+            pathParams.resolvedPath += "/";
             break;
         }else{
             throw new Error('Route file not found');
@@ -81,8 +86,6 @@ let resolveModule = async function(modulePath){
     }catch(err){
        return err;
     }
-
-    return routeModule;
 };
 
 
