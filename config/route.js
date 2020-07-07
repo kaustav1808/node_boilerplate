@@ -1,11 +1,8 @@
+require('dotenv').config()
+
 const routeConfig = {
     controllerPath:"/app/controller/",
-    routePath: "routes",
-    routes:{
-        webRoute:'webRoute.js',
-        apiRoute:'apiRoute.js'
-    },
-    routeType: 'api'
+    routePath: "/routes"
 }
 
 module.exports = routeConfig;
