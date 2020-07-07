@@ -8,7 +8,10 @@ const  userSchema = Schema({
         default:null
     },
     password:String,
-    email:String,
+    email:{
+        type:String,
+        unique:true 
+    },
     username:{
         type:String,
         default:null
@@ -17,4 +20,4 @@ const  userSchema = Schema({
 
 let User = mongoose.model('Users',userSchema)
 
-exports.default = User
+module.exports = User
