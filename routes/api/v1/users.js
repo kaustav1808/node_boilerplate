@@ -3,14 +3,20 @@ const router = express.Router();
 const userController = require('../../../app/controller/user/user')
 
 /* GET users listing. */
-router.get('/api/v1/users', function(req, res, next) {
-    res.send(userController.
-      listUser(req,res))
+router.post('/api/v1/users', function(req, res, next) {
+    userController
+        .listUser(req,res)
+        .then(usere=>{
+            res.send(usere)
+        }).catch(err=>{
+             next()
+        })
       
 });
 
 /* Find a user*/
 router.get('/api/v1/users/:id', function(req, res, next) {
+    
   userController
       .getUser(req,res)
       .then(result=>{

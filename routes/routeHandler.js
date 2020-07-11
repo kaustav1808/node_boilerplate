@@ -58,9 +58,10 @@ let resolveRouter = function() {
                 pathParams.resolvedPath += "/";
                 pathParams.pathArray.unshift(pathString);
                 break;
-            }else{
-                throw new Error('Route file not found');
             }
+            // else{
+            //     throw new Error('Route file not found');
+            // }
         }
         else if(pathParams.pathArray.length) {
             throw new Error("invalid URL " + pathParams.currentPath)
@@ -68,9 +69,10 @@ let resolveRouter = function() {
             pathResolver = 'index.js';
             pathParams.resolvedPath += "/";
             break;
-        }else{
-            throw new Error('Route file not found');
         }
+        // else{
+        //     throw new Error('Route file not found');
+        // }
     }
 
     return path.join(currentPath,pathResolver);
