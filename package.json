@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "pm2-runtime start ecosystem.config.js",
     "test": "set APP_ENV=test&& mocha --reporter spec"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "mongoose": "^5.9.21",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.4",
+    "pm2": "^4.4.0",
     "request": "^2.88.2"
   }
 }
