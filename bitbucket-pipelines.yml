@@ -11,6 +11,10 @@ pipelines:
   branches:
     dev-master:
       - step:
+          name:
+            Deploy to Development
+          deployment:
+            Development   
           script:
             - git add -A
             - git config --global user.email "kaustavofficial1808@gmail.com"
