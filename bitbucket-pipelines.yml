@@ -14,7 +14,7 @@ pipelines:
           name:
             Deploy to Development
           deployment:
-            development   
+            Development   
           script:
             - git add -A
             - git config --global user.email "kaustavofficial1808@gmail.com"
