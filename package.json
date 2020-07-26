@@ -18,12 +18,14 @@
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
+    "minimist": "^1.2.5",
     "mocha": "^7.1.2",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.21",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.4",
     "pm2": "^4.4.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "swagger-node-express": "^2.1.3"
   }
 }
