@@ -1,8 +1,7 @@
 #ignore node_modules
 node_modules
-
 package-lock.json
-
 .env
-
 .idea
+
+bitbucket-pipelines.yml
