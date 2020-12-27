@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "set APP_ENV=test&& mocha --reporter spec"
+    "test": "set APP_ENV=test&& mocha --reporter spec",
+    "copy": "node ./bin/createignore.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

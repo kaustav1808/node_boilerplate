@@ -11,4 +11,4 @@ bitbucket-pipelines.yml
 
 gitignore.txt
 
-.bin/gitignore.js
+/bin/createignore.js
