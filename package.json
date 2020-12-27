@@ -1,7 +1,7 @@
 {
-  "name": "node-boilerplate-lite-1.0",
-  "version": "0.0.0",
-  "private": true,
+
+  "name": "node-boilerplate",
+  "version": "1.0.0",
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.js",
     "test": "set APP_ENV=test&& mocha --reporter spec"
