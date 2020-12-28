@@ -10,7 +10,12 @@ For installing this project in your local you need to follow below steps -
 1) git clone https://github.com/kaustav1808/node_boilerplate.git
 2) cd node_boilerplate
 3) npm install
-4) npm start
+
+# Running the project
+1) create `.env` file
+2) add DB_CONNECTION_STRING = mongodb+srv://<username>:<password>@<hostname>/<dbname>?retryWrites=true&w=majority
+   where `username` would be your mongodb username, `password` would be the password and `dbname` would be the database you want to create.
+3) run the command `npm start`.
 
 This boilerplate application is designed based on Test Driven Development (TDD)
 
